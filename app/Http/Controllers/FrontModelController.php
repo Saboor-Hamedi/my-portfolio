@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\FrontModel;
+use App\Models\Posts;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class FrontModelController extends Controller
@@ -12,9 +14,10 @@ class FrontModelController extends Controller
      */
     public function index()
     {
-        //
+        $posts = Posts::with('user')->paginate(6);
         return view('index', [
-            'title' => 'Posts'
+            'posts' => $posts,
+            'title' => 'Posts',
         ]);
     }
 
@@ -37,9 +40,12 @@ class FrontModelController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(FrontModel $frontModel)
+    public function show($slug)
     {
-        //
+        $post = Posts::where('slug', $slug)->with('user')->firstOrFail();
+        return view('/posts.show', [
+            'post' => $post
+        ]);
     }
 
     /**
