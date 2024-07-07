@@ -22,7 +22,7 @@ class PostsFactory extends Factory
         return [
             'user_id' => $this->faker->numberBetween(1, 2),
             'title' => $title,
-            "body" => $this->faker->paragraph,
+            "body" => $this->faker->paragraph(10),
             'slug' => Str::slug($title),
             'is_publish' => $this->faker->boolean()
         ];

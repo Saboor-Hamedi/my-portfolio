@@ -43,8 +43,13 @@ class FrontModelController extends Controller
     public function show($slug)
     {
         $post = Posts::where('slug', $slug)->with('user')->firstOrFail();
+        $otherPosts = Posts::with('user')
+            ->where('slug', '!=', $slug) // Exclude the current post
+            ->inRandomOrder()
+            ->paginate(3);
         return view('/posts.show', [
-            'post' => $post
+            'post' => $post,
+            "otherPosts" => $otherPosts,
         ]);
     }
 
