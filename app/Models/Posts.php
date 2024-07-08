@@ -11,7 +11,7 @@ class Posts extends Model
 {
     use HasFactory;
 
-    protected $filleble = ['user_id', 'title', 'body', 'slug', 'is_publish'];
+    protected $filleble = ['user_id', 'title', 'body', 'slug', 'image', 'is_publish'];
 
 
     public function user(): BelongsTo
@@ -42,5 +42,10 @@ class Posts extends Model
             ->toArray();
 
         return implode("<br />\n\n", $paragraphs);
+    }
+
+    public function getImageUrlAttribute()
+    {
+        return asset('storage/' . $this->images);
     }
 }

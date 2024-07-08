@@ -17,7 +17,7 @@ class FrontModelController extends Controller
         $posts = Posts::with('user')->paginate(6);
         return view('index', [
             'posts' => $posts,
-            'title' => 'Posts',
+            'title' => 'Home',
         ]);
     }
 
@@ -47,9 +47,10 @@ class FrontModelController extends Controller
             ->where('slug', '!=', $slug) // Exclude the current post
             ->inRandomOrder()
             ->paginate(3);
-        return view('/posts.show', [
+        return view('posts.show', [
             'post' => $post,
             "otherPosts" => $otherPosts,
+            'title' => 'Show Details'
         ]);
     }
 

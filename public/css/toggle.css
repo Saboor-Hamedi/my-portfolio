@@ -1,0 +1,65 @@
+/* Add some spacing and alignment */
+.toggle-button {
+  display: inline-block;
+  cursor: pointer;
+  margin: 10px;
+  vertical-align: middle;
+}
+
+/* Add some visual appeal to the slider */
+.toggle-button-slider {
+  width: 50px;
+  height: 26px;
+  background-color: #1f2937;
+  border-radius: 13px;
+  position: relative;
+  transition: background-color 0.3s ease;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Add some visual appeal to the knob */
+.toggle-button-knob {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background-color: #ff69b4; /* Changed to a more vibrant color */
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  transition: transform 0.3s ease;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+/* Add a subtle gradient to the slider */
+.toggle-button-slider::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: linear-gradient(to bottom, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.3));
+  border-radius: 13px;
+  opacity: 0.5;
+}
+
+/* Checked state */
+#darkModeSwitch:checked + label .toggle-button-slider {
+  background-color: #333;
+}
+
+#darkModeSwitch:checked + label .toggle-button-knob {
+  transform: translateX(24px);
+  background-color: #fff; /* Changed to a contrasting color */
+}
+
+/* Hover and active states */
+.toggle-button:hover .toggle-button-slider {
+  background-color: #2f3640; /* Darkened the background color */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.toggle-button:active .toggle-button-slider {
+  background-color: #2f3640;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}

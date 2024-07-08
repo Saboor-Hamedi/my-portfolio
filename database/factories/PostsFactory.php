@@ -24,6 +24,7 @@ class PostsFactory extends Factory
             'title' => $title,
             "body" => $this->faker->paragraph(10),
             'slug' => Str::slug($title),
+            'images' => 'postImages/' . basename($this->faker->image('public/storage/postImages', 400, 300, null, false)),
             'is_publish' => $this->faker->boolean()
         ];
     }

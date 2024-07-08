@@ -1,6 +1,6 @@
 <!-- resources/views/vendor/pagination/tailwind.blade.php -->
 @if ($paginator->hasPages())
-    <div role="navigation" aria-label="{{ __('Pagination Navigation') }}" class="bg-white py-4 text-center dark:bg-dark">
+    <div role="navigation" aria-label="{{ __('Pagination Navigation') }}" class="dark__mode bg-white py-4 text-center dark:bg-dark">
         <div class="flex justify-center">
             <ul class="flex flex-wrap justify-center rounded-lg border border-stroke dark:border-white/5">
                 {{-- Previous Page Link --}}

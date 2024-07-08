@@ -1,0 +1,15 @@
+:root {
+  --bg-color-dark: #1f2937; /* Default dark background color */
+  --bg-text-dark: #fff; /* Default dark text color */
+}
+
+.dark .footer{
+        background-color: var(--bg-color-dark);
+  color: var(--bg-text-dark);
+}
+
+.dark .dark__mode{
+        background-color: var(--bg-color-dark);
+        color: var(--bg-text-dark);
+}
+

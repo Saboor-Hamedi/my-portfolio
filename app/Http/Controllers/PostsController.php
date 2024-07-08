@@ -12,7 +12,7 @@ class PostsController extends Controller
      */
     public function index()
     {
-        //
+        return view('posts.index');
     }
 
     /**
@@ -34,11 +34,23 @@ class PostsController extends Controller
     /**
      * Display the specified resource.
      */
+    // public function show(Posts $posts)
+    // {
+    //     $post = Posts::where('slug', $posts)->with('user')->firstOrFail();
+    //     $otherPosts = Posts::with('user')
+    //         ->where('slug', '!=', $posts) // Exclude the current post
+    //         ->inRandomOrder()
+    //         ->paginate(3);
+    //     return view('posts.show', [
+    //         'post' => $post,
+    //         "otherPosts" => $otherPosts,
+    //         'title' => 'Show Details'
+    //     ]);
+    // }
     public function show(Posts $posts)
     {
-        //
+        return view('posts.show');
     }
-
     /**
      * Show the form for editing the specified resource.
      */
