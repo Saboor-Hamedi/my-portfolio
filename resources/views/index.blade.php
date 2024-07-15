@@ -39,6 +39,11 @@
                             <p class="text-sm  ">
                                 {{ Str::limit($post->body, 150) ?? 'N/A' }}
                             </p>
+                            <div class="tags">
+                                @foreach ($post->tags as $tag )
+                                {{$tag->name}}
+                                @endforeach
+                            </div>
                         </div>
                     </div>
                 @endforeach

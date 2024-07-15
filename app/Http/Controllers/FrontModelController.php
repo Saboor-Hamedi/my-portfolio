@@ -14,7 +14,7 @@ class FrontModelController extends Controller
      */
     public function index()
     {
-        $posts = Posts::with('user')->paginate(6);
+        $posts = Posts::with('user', 'tags')->paginate(6);
         return view('index', [
             'posts' => $posts,
             'title' => 'Home',

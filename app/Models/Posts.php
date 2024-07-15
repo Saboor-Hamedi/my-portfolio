@@ -2,15 +2,17 @@
 
 namespace App\Models;
 
+use Illuminate\Cache\TagSet;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Support\Str;
 
 class Posts extends Model
 {
     use HasFactory;
-
+    protected $table = 'posts'; // Ensure this is correct
     protected $filleble = ['user_id', 'title', 'body', 'slug', 'image', 'is_publish'];
 
 
@@ -18,6 +20,11 @@ class Posts extends Model
     {
         return $this->belongsTo(User::class);
     }
+    public function tags(): BelongsToMany
+    {
+        return $this->belongsToMany(Tag::class, foreignPivotKey: 'post_id');
+    }
+
     public function slug()
     {
         return 'slug';

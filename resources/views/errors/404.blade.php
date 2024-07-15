@@ -8,4 +8,4 @@
       </a>
     </div>
   </section>
-</x-layout>
+</x-layout> 

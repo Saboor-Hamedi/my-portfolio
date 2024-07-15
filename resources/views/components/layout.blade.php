@@ -10,6 +10,8 @@
     @vite('resources/css/app.css')
     <link rel="stylesheet" href="{{ asset('css/style.css') }}">
     <link rel="stylesheet" href="{{ asset('css/toggle.css') }}">
+    
+   
 </head>
 
 <body class="h-full">
@@ -17,8 +19,7 @@
 
     {{ $slot }}
 
-
-    <script src="{{ asset('js/dark-mode.js') }}"></script>
+ <script src="{{ asset('js/dark-mode.js') }}"></script>
     <script src="{{ asset('js/navbar.js') }}"></script>
     <script src="{{ asset('js/dashboard.js') }}"></script>
 </body>
