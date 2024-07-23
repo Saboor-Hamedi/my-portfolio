@@ -6,14 +6,20 @@ use App\Models\Posts;
 use App\Models\Tag;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
 
 
 class AdminController extends Controller
 {
     use ValidatesRequests;
+    public function __construct()
+    {
+    }
     public function index()
     {
+
+
         $posts = Posts::with('user', 'tags')->orderBy('created_at', 'desc')->cursorPaginate(3);
 
         return view('admin/dashboard', [
@@ -68,7 +74,7 @@ class AdminController extends Controller
         $body = $request->input('body');
 
         $post = Posts::create([
-            'user_id' => 1,
+            'user_id' => Auth::user()->id,
             'title' => $title,
             'image' => $image_path,
             'slug' => $slug,

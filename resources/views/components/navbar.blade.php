@@ -21,6 +21,7 @@
                         <x-nav-links href="{{ route('index') }}" :active="request()->routeIs('index')">Posts</x-nav-links>
                         <x-nav-links href="{{ route('about.index') }}" :active="request()->routeIs('about.index')">About</x-nav-links>
                         <x-nav-links href="{{ route('contact.index') }}" :active="request()->routeIs('contact.index')">Contact</x-nav-links>
+                        <x-nav-links href="{{ route('login') }}" :active="request()->routeIs('login')">Login</x-nav-links>
                     </div>
 
                 </div>

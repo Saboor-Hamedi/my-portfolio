@@ -1,5 +1,8 @@
 <?php
 
+use App\Http\Middleware\CheckAdminAuth;
+use App\Http\Middleware\PreventBackHistory;
+
 return [
 
     /*
@@ -122,6 +125,16 @@ return [
     'maintenance' => [
         'driver' => env('APP_MAINTENANCE_DRIVER', 'file'),
         'store' => env('APP_MAINTENANCE_STORE', 'database'),
+    ],
+    'middleware' => [
+        // ... other middleware
+        'global' => [
+            PreventBackHistory::class, // Only PreventBackHistory as global middleware
+        ],
+
+        'route middleware' => [
+            'auth' => CheckAdminAuth::class, // Keep CheckAdminAuth for the admin route
+        ],
     ],
 
 ];

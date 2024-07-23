@@ -6,9 +6,9 @@
             <address class="flex items-center mb-6 not-italic">
                 <div class="inline-flex items-center mr-3 text-sm ">
                     @if (!$post->image)
-                        <img src="{{ asset('storage/default/bg.jpg') }}" class="mr-4 w-16 h-16 rounded-full">
+                        <img src="{{ asset('storage/default/bg.jpg') }}" class="mr-4 w-16 h-16 rounded-full object-fill	">
                     @else
-                        <img src="{{ asset('storage/postImages/' . $post->image) }}" class="mr-4 w-16 h-16 rounded-full"
+                        <img src="{{ asset('storage/postImages/' . $post->image) }}" class="mr-4 w-16 h-16 rounded-full object-fill	"
                             alt="Not found image">
                     @endif
 
@@ -30,10 +30,10 @@
                 <div class="mb-4">
                     @if (!$post->image)
                         <img src="{{ asset('storage/default/bg.jpg') }}" alt="Post Image"
-                            class="w-full h-48 object-cover">
+                            class="w-full h-48 object-fill	">
                     @else
                         <img src="{{ asset('storage/postImages/' . $post->image) }}" alt="Post Image"
-                            class="w-full h-48 object-cover">
+                            class="wobject-cover h-48 w-96">
                     @endif
 
                 </div>
