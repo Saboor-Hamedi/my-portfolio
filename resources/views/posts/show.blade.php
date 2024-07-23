@@ -36,6 +36,8 @@
                         @endif
 
                     </div>
+                    <h3 class="text-2xl font-bold mb-2">{{ Str::ucfirst($post->title) }}</h3>
+
                 </figure>
                 <p class="text-justify">{!! $post->wrapBodyText(500, true) !!}</p>
                 <div class="tags p-2">
@@ -78,6 +80,7 @@
                     <div class="w-full px-4 md:w-1/2 lg:w-1/3">
                         <div class="w-full mb-10">
                             <div class="mb-8 overflow-hidden rounded">
+
                                 {{-- <img src="https://cdn.tailgrids.com/2.0/image/application/images/blogs/blog-01/image-01.jpg"
                                     alt="image" class="w-full" /> --}}
                                 @if (!$otherPost->image)
@@ -93,26 +96,29 @@
                                 </span>
                                 <span class="block mb-2 text-xs font-semibold leading-loose text-center">
                                     {{ $otherPost->created_at->diffForHumans() ?? 'N/A' }}
+
                                 </span>
                                 <h3>
                                     <a href="{{ route('posts.show', [$otherPost->slug]) }}"
                                         class="block mb-4 text-xl font-semibold text-dark dark:text-black hover:text-primary sm:text-2xl lg:text-xl xl:text-2xl">
                                         {{ $otherPost->title ?? 'N/A' }}
+
                                     </a>
+
                                 </h3>
                                 <p class="text-base text-body-color dark:text-dark-6">
                                     {{ Str::limit($otherPost->body, 50) ?? 'N/A' }}
                                 </p>
                             </div>
-                               <div class="tags p-2">
-                                    @foreach ($otherPost->tags as $tag)
-                                        <span
-                                            class="bg-gray-100 text-gray-800 text-sm font-medium me-2 px-2.5 
+                            <div class="tags p-2">
+                                @foreach ($otherPost->tags as $tag)
+                                    <span
+                                        class="bg-gray-100 text-gray-800 text-sm font-medium me-2 px-2.5 
                                                 py-0.5 rounded dark:bg-gray-700 dark:text-gray-300">
-                                            #{{ $tag->name }}
-                                        </span>
-                                    @endforeach
-                                </div>
+                                        #{{ $tag->name }}
+                                    </span>
+                                @endforeach
+                            </div>
                         </div>
                     </div>
                 @endforeach

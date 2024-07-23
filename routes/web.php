@@ -26,6 +26,7 @@ Route::middleware([CheckAdminAuth::class, PreventBackHistory::class])->group(fun
 
 
 
+
 // ---- login
 Route::get('/login', [LoginController::class, 'showLogin'])->name('login');
 Route::post('/login', [LoginController::class, 'loginAction'])->name('login');

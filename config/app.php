@@ -2,6 +2,7 @@
 
 use App\Http\Middleware\CheckAdminAuth;
 use App\Http\Middleware\PreventBackHistory;
+use App\Providers\AuthServiceProvider;
 
 return [
 

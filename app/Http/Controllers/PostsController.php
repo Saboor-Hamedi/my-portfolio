@@ -4,9 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Models\Posts;
 use Illuminate\Http\Request;
-use Illuminate\Support\Str;
 use Illuminate\Foundation\Validation\ValidatesRequests;
-
+use Illuminate\Http\RedirectResponse;
+use Illuminate\Support\Facades\Storage;
 
 class PostsController extends Controller
 {
@@ -57,8 +57,7 @@ class PostsController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Posts $posts)
+    public function destroy($id)
     {
-        //
     }
 }

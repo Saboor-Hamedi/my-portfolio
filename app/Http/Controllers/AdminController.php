@@ -4,14 +4,21 @@ namespace App\Http\Controllers;
 
 use App\Models\Posts;
 use App\Models\Tag;
+use Exception;
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Foundation\Validation\ValidatesRequests;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
 
 class AdminController extends Controller
 {
+    use AuthorizesRequests;
+
     use ValidatesRequests;
     public function __construct()
     {
@@ -43,7 +50,7 @@ class AdminController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'title' => 'required|string|max:50',
+            'title' => 'required|string|max:255',
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:1024',
             'body' => 'required|max:10000',
             'tag' => 'nullable|string|max:255',
@@ -88,11 +95,104 @@ class AdminController extends Controller
             return redirect()->route('admin.index')->with(['success' => 'Post Created successfully']);
         }
     }
-    public function edit()
+    public function update(Request $request, $id): RedirectResponse
     {
+        // Retrieve the post
+        $post = Posts::findOrFail($id);
+
+        // Authorization check
+        $this->authorize('update', $post);
+
+        // Validate incoming request data
+        $validatedData = $request->validate([
+            'title' => 'required|string|max:255',
+            'body' => 'required|string',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:1024',
+            'tags' => 'nullable|string|max:255',
+        ]);
+
+        try {
+            // Handle image upload
+            if ($request->hasFile('image')) {
+                // Delete the old image if it exists
+                if ($post->image && Storage::exists('public/postImages/' . $post->image)) {
+                    Storage::delete('public/postImages/' . $post->image);
+                }
+
+                // Store the new image
+                $image = $request->file('image');
+                if ($image) {
+                    $name = time() . '.' . $image->getClientOriginalExtension();
+                    $image->storeAs('public/postImages', $name); // Store image in the public postImages directory
+                    $validatedData['image'] = $name; // Set the image path without the folder name
+                }
+            } else {
+                // Keep the existing image if no new image is uploaded
+                $validatedData['image'] = $post->image;
+            }
+
+            // Update the post with validated data
+            $post->update($validatedData);
+
+            // Handle tags
+            if (!empty($request['tag'])) {
+                $tags = explode(',', $request['tag']);
+                foreach ($tags as $tagName) {
+                    $tag = Tag::firstOrCreate(['name' => trim($tagName)]);
+                    $tagIds[] = $tag->id;
+                }
+                // Sync tags to the post
+                $post->tags()->sync($tagIds); // Sync tags to manage adding and removing // Sync tags to manage adding and removing
+            } else {
+                // Optional: If no tags are provided, you can choose to detach all tags
+                // $post->tags()->detach();
+            }
+
+            return redirect()->route('admin.index')->with('success', 'Post updated successfully.');
+        } catch (Exception $e) {
+            // Log the exception
+            Log::error('Failed to update post: ' . $e->getMessage());
+
+            return redirect()->route('admin.index')->with('error', 'Failed to update the post.');
+        }
     }
 
-    public function delete()
+
+    public function edit($slug)
+
     {
+        $post = Posts::where('slug', $slug)->with('user')->firstOrFail();
+        $tagsString = $post->tags->pluck('name')->implode(', ');
+
+        return view('admin.update', [
+            'post' => $post,
+            'tagsString' => $tagsString,
+            'title' => 'Post edit'
+        ]);
+    }
+
+    public function destroy(Request $request, $id): RedirectResponse
+    {
+        $post = Posts::findOrFail($id);
+
+        // Authorization check
+        $this->authorize('delete', $post);
+
+        try {
+            // Delete the image if it exists
+            if ($post->image && Storage::exists('public/postImages/' . $post->image)) {
+                Storage::delete('public/postImages/' . $post->image);
+            }
+
+            // Delete the post
+            $post->delete();
+
+            return redirect()->route('admin.index')->with('success', 'Post deleted successfully.');
+        } catch (\Exception $e) {
+            // Log the exception
+            Log::error('Failed to delete post: ' . $e->getMessage());
+
+            return redirect()->route('admin.index')->with('error', 'Failed to delete the post.');
+        }
     }
 }
