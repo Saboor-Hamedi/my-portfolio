@@ -1,24 +1,21 @@
-<x-layout :title='$title'>
-    <x-hero></x-hero>
-    <section class="pt-10 pb-10 lg:pt-20 lg:pb-20  dark:bg-dark dark__mode">
-        <div class="container mx-auto px-4">
-            <div class="mx-auto mb-10 lg:mb-20 max-w-3xl text-center ">
-                <span class="block mb-2 text-lg font-semibold text-primary tex-white">
-                    Our Blogs
-                </span>
-                <h2 class="mb-4 text-3xl font-bold  sm:text-4xl md:text-5xl tex-white ">
-                    Our Recent News
-                </h2>
-                <p class=" ">
-                    There are many variations of passages of Lorem Ipsum available
-                    but the majority have suffered alteration in some form.
-                </p>
-            </div>
+<x-layout>
 
+    <x-sidebar></x-sidebar>
+    <main class="flex-grow p-4 sm:ml-64 mt-16 sm:mt-16 dark__mode ">
+        <div class="container mx-auto px-4">
+            @if (Session::has('success'))
+                <div class="p-4 mb-4 text-sm text-blue-800 rounded-lg bg-blue-50 dark:bg-gray-800 dark:text-blue-400"
+                    role="alert">
+                    {{ Session::get('success') }}
+                    @php
+                        Session::forget('success');
+                    @endphp
+                </div>
+            @endif
             {{-- Blog posts --}}
-            <div class="flex flex-wrap -mx-4">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                 @foreach ($posts as $post)
-                    <div class="w-full px-4 mb-10 md:w-1/2 lg:w-1/3">
+                    <div class="w-full mb-3 bg-white-500 rounded-lg shadow-2xl">
                         <div class="mb-2">
                             @if (!$post->image)
                                 <img src="{{ asset('storage/default/bg.jpg') }}" alt="">
@@ -28,29 +25,28 @@
                             @endif
                         </div>
                         <div>
-                            <span class="block mb-2 text-xs font-semibold leading-loose text-center">
+                            <span class="p-2">
                                 Author: {{ ucfirst($post->user->name ?? 'Anonymous') }}
                             </span>
-                            <span class="block mb-2 text-xs font-semibold leading-loose text-center">
+                            <span class="p-2">
                                 {{ $post->created_at->diffForHumans() ?? 'N/A' }}
                             </span>
-                            <h3>
-                                <a href="{{ route('posts.show', [$post->slug]) }}"
-                                    class="inline-block mb-4 text-xl font-semibold text-dark dark:text-white hover:text-primary sm:text-2xl lg:text-xl xl:text-2xl">
+                            <h3 class="p-2">
+                                <a href="{{ route('admin.show', [$post->slug]) }}"
+                                    class="inline-block text-xl font-semibold text-dark dark:text-white hover:text-primary sm:text-2xl lg:text-xl xl:text-2xl">
                                     {{ $post->title ?? 'N/A' }}
                                 </a>
-
                             </h3>
-                            <p class="text-sm  ">
-                                {{ Str::limit($post->body, 150) ?? 'N/A' }}
+                            <p class="p-2 text-sm  ">
+                                {{ Str::limit($post->body, 40) ?? 'N/A' }}
                             </p>
                             <div class="tags p-2">
                                 @foreach ($post->tags as $tag)
                                     <span
                                         class="bg-gray-100 text-gray-800 text-sm font-medium me-2 px-2.5 
                                                 py-0.5 rounded dark:bg-gray-700 dark:text-gray-300">
-                                        #{{ $tag->name }}
-                                    </span>
+                                            #{{ $tag->name }}
+                                        </span>
                                 @endforeach
                             </div>
                         </div>
@@ -64,6 +60,6 @@
             </div>
             {{-- End blog posts --}}
         </div>
-    </section>
-    <x-footer></x-footer>
+    </main>
+
 </x-layout>

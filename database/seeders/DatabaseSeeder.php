@@ -18,25 +18,25 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // User::factory(2)->create();
 
-        DB::table('users')->insert([
-            [
-                "name" => "admin",
-                "email" => 'admin@gmail.com',
-                "password" =>  Hash::make("123"),
-                "remember_token" => Str::random(10),
-                "created_at" => Now(),
-            ],
-            [
-                "name" => "guest",
-                "email" => 'guest@gmail.com',
-                "password" =>  Hash::make("123"),
-                "remember_token" => Str::random(10),
-                "created_at" => Now(),
-            ]
-        ]);
 
-        Posts::factory(10)->create();
+        // DB::table('users')->insert([
+        //     [
+        //         "name" => "admin",
+        //         "email" => 'admin@gmail.com',
+        //         "password" =>  Hash::make("123"),
+        //         "remember_token" => Str::random(10),
+        //         "created_at" => Now(),
+        //     ],
+        //     [
+        //         "name" => "guest",
+        //         "email" => 'guest@gmail.com',
+        //         "password" =>  Hash::make("123"),
+        //         "remember_token" => Str::random(10),
+        //         "created_at" => Now(),
+        //     ]
+        // ]);
+        User::factory(2)->create();
+        Posts::factory(200)->create();
     }
 }

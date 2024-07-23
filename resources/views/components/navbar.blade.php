@@ -1,8 +1,17 @@
-<nav class="bg-gray-800 border-solid border-b-2 border-b-gray-200 ">
-    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 ">
-        <div class="flex h-16 items-center justify-between ">
+<nav class="bg-gray-800 border-solid border-b-2 border-b-gray-200 fixed top-0 left-0 right-0 z-50">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <div class="flex h-16 items-center justify-between">
             <div class="flex items-center">
                 <div class="flex-shrink-0">
+                    <button id="sidebarToggle" class="sm:hidden">
+                        <span class="sr-only">Open sidebar</span>
+                        <svg class="w-6 h-6" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20"
+                            xmlns="http://www.w3.org/2000/svg">
+                            <path clip-rule="evenodd" fill-rule="evenodd"
+                                d="M2 4.75A.75.75 0 012.75 4h14.5a.75.75 0 010 1.5H2.75A.75.75 0 012 4.75zm0 10.5a.75.75 0 01.75-.75h7.5a.75.75 0 010 1.5h-7.5a.75.75 0 01-.75-.75zM2 10a.75.75 0 01.75-.75h14.5a.75.75 0 010 1.5H2.75A.75.75 0 012 10z">
+                            </path>
+                        </svg>
+                    </button>
                     <a href="{{ route('index') }}">
                         <img class="rounded-full h-8 w-8" src="{{ url('storage/logo/logo.png') }}" alt="logo" />
                     </a>
@@ -16,16 +25,16 @@
 
                 </div>
                 <div class="toggle-button">
-                <input type="checkbox" id="darkModeSwitch" class="sr-only" aria-label="Toggle dark mode" />
-                <label for="darkModeSwitch" class="flex items-center cursor-pointer">
-                    <div class="toggle-button-slider">
-                        <div class="toggle-button-knob"></div>
-                    </div>
-                </label>
-            </div>
+                    <input type="checkbox" id="darkModeSwitch" class="sr-only" aria-label="Toggle dark mode" />
+                    <label for="darkModeSwitch" class="flex items-center cursor-pointer">
+                        <div class="toggle-button-slider">
+                            <div class="toggle-button-knob"></div>
+                        </div>
+                    </label>
+                </div>
             </div>
             {{-- dark button --}}
-            
+
             {{-- end dark button --}}
             <div class="hidden md:block">
                 <div class="ml-4 flex items-center md:ml-6">

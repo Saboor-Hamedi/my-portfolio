@@ -13,7 +13,7 @@ class Posts extends Model
 {
     use HasFactory;
     protected $table = 'posts'; // Ensure this is correct
-    protected $filleble = ['user_id', 'title', 'body', 'slug', 'image', 'is_publish'];
+    protected $fillable = ['user_id', 'title', 'body', 'slug', 'image', 'is_publish'];
 
 
     public function user(): BelongsTo

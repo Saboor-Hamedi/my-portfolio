@@ -18,3 +18,15 @@ document.addEventListener('DOMContentLoaded', function() {
     }
   });
 });
+
+
+// preview image 
+function previewImage(event) {
+                                var reader = new FileReader();
+                                reader.onload = function() {
+                                    var output = document.getElementById('image_preview');
+                                    output.src = reader.result;
+                                    output.classList.remove('hidden');
+                                }
+                                reader.readAsDataURL(event.target.files[0]);
+                            }

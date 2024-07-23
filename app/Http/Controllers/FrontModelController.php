@@ -4,7 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\FrontModel;
 use App\Models\Posts;
-use App\Models\User;
+
+
 use Illuminate\Http\Request;
 
 class FrontModelController extends Controller
@@ -14,7 +15,9 @@ class FrontModelController extends Controller
      */
     public function index()
     {
-        $posts = Posts::with('user', 'tags')->paginate(6);
+        $posts = Posts::with('user', 'tags')
+            ->latest()
+            ->cursorPaginate(3);
         return view('index', [
             'posts' => $posts,
             'title' => 'Home',
@@ -42,17 +45,27 @@ class FrontModelController extends Controller
      */
     public function show($slug)
     {
-        $post = Posts::where('slug', $slug)->with('user')->firstOrFail();
-        $otherPosts = Posts::with('user')
-            ->where('slug', '!=', $slug) // Exclude the current post
-            ->inRandomOrder()
-            ->paginate(3);
+        // Eager load the 'user' relation only once for both the main post and other posts
+        $post = Posts::with('user')->where('slug', $slug)->firstOrFail();
+
+        $otherPosts = Posts::with(['user', 'tags'])
+            ->where('slug', '<>', $slug)
+            ->latest()
+            ->cursorPaginate(3);
+
+        // Debugging
+        if ($otherPosts->isEmpty()) {
+            logger('No other posts found.');
+        }
+
         return view('posts.show', [
             'post' => $post,
-            "otherPosts" => $otherPosts,
+            'otherPosts' => $otherPosts,
             'title' => 'Show Details'
         ]);
     }
+
+
 
     /**
      * Show the form for editing the specified resource.

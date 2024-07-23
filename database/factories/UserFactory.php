@@ -24,19 +24,10 @@ class UserFactory extends Factory
     public function definition(): array
     {
         return [
-            [
-                "name" => "admin",
-                "email" => 'admin@gmail.com',
-                "password" => static::$password ??=  Hash::make("123"),
-                "remember_token" => Str::random(10),
-            ],
-            [
-                "name" => "guest",
-                "email" => 'guest@gmail.com',
-                "password" => static::$password ??=  Hash::make("123"),
-                "remember_token" => Str::random(10),
-            ]
-
+            "name" => $this->faker->name,
+            "email" => $this->faker->unique()->safeEmail,
+            "password" => static::$password ??= Hash::make("123"), // You can change this to your desired default password
+            "remember_token" => Str::random(10),
         ];
     }
 

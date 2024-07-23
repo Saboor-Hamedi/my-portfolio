@@ -4,15 +4,19 @@ namespace App\Http\Controllers;
 
 use App\Models\Posts;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
+use Illuminate\Foundation\Validation\ValidatesRequests;
+
 
 class PostsController extends Controller
 {
+    use ValidatesRequests;
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        return view('posts.index');
+        return view('posts.index', ['title' => 'Home']);
     }
 
     /**
@@ -20,7 +24,7 @@ class PostsController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin/create');
     }
 
     /**
@@ -28,28 +32,11 @@ class PostsController extends Controller
      */
     public function store(Request $request)
     {
-        //
     }
 
-    /**
-     * Display the specified resource.
-     */
-    // public function show(Posts $posts)
-    // {
-    //     $post = Posts::where('slug', $posts)->with('user')->firstOrFail();
-    //     $otherPosts = Posts::with('user')
-    //         ->where('slug', '!=', $posts) // Exclude the current post
-    //         ->inRandomOrder()
-    //         ->paginate(3);
-    //     return view('posts.show', [
-    //         'post' => $post,
-    //         "otherPosts" => $otherPosts,
-    //         'title' => 'Show Details'
-    //     ]);
-    // }
     public function show(Posts $posts)
     {
-        return view('posts.show');
+        return view('posts.show', ['title' => 'Show Details']);
     }
     /**
      * Show the form for editing the specified resource.
