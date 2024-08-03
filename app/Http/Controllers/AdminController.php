@@ -26,9 +26,10 @@ class AdminController extends Controller
     public function index()
     {
 
-
-        $posts = Posts::with('user', 'tags')->orderBy('created_at', 'desc')->cursorPaginate(3);
-
+        $posts = Posts::with('user', 'tags')
+            ->where('user_id', Auth::user()->id)
+            ->orderBy('created_at', 'desc')
+            ->cursorPaginate(3);
         return view('admin/dashboard', [
             'posts' => $posts,
             'title' => 'Main Dashboard',
@@ -36,7 +37,15 @@ class AdminController extends Controller
     }
     public function show($slug)
     {
-        $post = Posts::where('slug', $slug)->with('user')->firstOrFail();
+        if (!auth()->check()) {
+            return redirect()->route('login');
+        }
+        $post = Posts::where('slug', $slug)
+            ->with('user')->firstOrFail();
+
+        // check if user is authorized to view the post
+
+        $this->authorize('view', $post);
 
         return view('admin.show', [
             'post' => $post,
@@ -49,6 +58,9 @@ class AdminController extends Controller
     }
     public function store(Request $request)
     {
+        if (!auth()->check()) {
+            return redirect()->route('login');
+        }
         $this->validate($request, [
             'title' => 'required|string|max:255',
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:1024',

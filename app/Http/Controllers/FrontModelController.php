@@ -4,12 +4,12 @@ namespace App\Http\Controllers;
 
 use App\Models\FrontModel;
 use App\Models\Posts;
-
-
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Http\Request;
 
 class FrontModelController extends Controller
 {
+    use AuthorizesRequests;
     /**
      * Display a listing of the resource.
      */
@@ -45,6 +45,10 @@ class FrontModelController extends Controller
      */
     public function show($slug)
     {
+        // check if user is logged in 
+        // if (!auth()->check()) {
+        //     return redirect()->route('login')->with('error', 'Please login first.');
+        // }
         // Eager load the 'user' relation only once for both the main post and other posts
         $post = Posts::with('user')->where('slug', $slug)->firstOrFail();
 
@@ -53,6 +57,7 @@ class FrontModelController extends Controller
             ->latest()
             ->cursorPaginate(3);
 
+        // $this->authorize('view', $post);
         // Debugging
         if ($otherPosts->isEmpty()) {
             logger('No other posts found.');

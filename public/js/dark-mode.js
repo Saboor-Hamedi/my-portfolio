@@ -1,4 +1,4 @@
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
   const darkModeSwitch = document.getElementById('darkModeSwitch'); // Remove the # symbol
   const body = document.body;
 
@@ -8,7 +8,7 @@ document.addEventListener('DOMContentLoaded', function() {
     darkModeSwitch.checked = true;
   }
 
-  darkModeSwitch.addEventListener('change', function() {
+  darkModeSwitch.addEventListener('change', function () {
     if (this.checked) {
       body.classList.add('dark');
       localStorage.setItem('darkMode', 'true');
@@ -22,11 +22,14 @@ document.addEventListener('DOMContentLoaded', function() {
 
 // preview image 
 function previewImage(event) {
-                                var reader = new FileReader();
-                                reader.onload = function() {
-                                    var output = document.getElementById('image_preview');
-                                    output.src = reader.result;
-                                    output.classList.remove('hidden');
-                                }
-                                reader.readAsDataURL(event.target.files[0]);
-                            }
+  var reader = new FileReader();
+  reader.onload = function () {
+    var output = document.getElementById('image_preview');
+    output.src = reader.result;
+    output.classList.remove('hidden');
+  }
+  reader.readAsDataURL(event.target.files[0]);
+}
+
+
+

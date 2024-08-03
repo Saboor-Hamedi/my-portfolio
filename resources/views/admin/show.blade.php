@@ -8,8 +8,8 @@
                     @if (!$post->image)
                         <img src="{{ asset('storage/default/bg.jpg') }}" class="mr-4 w-16 h-16 rounded-full object-fill	">
                     @else
-                        <img src="{{ asset('storage/postImages/' . $post->image) }}" class="mr-4 w-16 h-16 rounded-full object-fill	"
-                            alt="Not found image">
+                        <img src="{{ asset('storage/postImages/' . $post->image) }}"
+                            class="mr-4 w-16 h-16 rounded-full object-fill	" alt="Not found image">
                     @endif
 
                     <div>
@@ -37,11 +37,14 @@
                     @endif
 
                 </div>
-                <div class="">
-                    <h2 class="text-2xl font-bold mb-2">{{ Str::ucfirst($post->title) }}</h2>
-                    <p class="text-dark text-sm mb-4">{{ $post->created_at->diffForHumans() }}</p>
-                    <p class="text-dark text-lg">{!! $post->wrapBodyText(500, true) !!}</p>
+
+                <div class="inline-block p-2">
+                    <h1 class="mb-4 text-4xl font-extrabold leading-none tracking-tight text-gray-900 md:text-5xl lg:text-6xl dark:text-white">
+                        {!! Str::ucfirst($post->title) !!}
+                    </h1>
+                    {!! $post->body !!}
                 </div>
+                 
                 <div class="tags p-2">
                     @foreach ($post->tags as $tag)
                         <span

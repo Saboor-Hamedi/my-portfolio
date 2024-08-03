@@ -2,8 +2,10 @@
 
 namespace App\Providers;
 
+use App\View\Components\CodeBlock;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Foundation\Support\Providers\RouteServiceProvider as ServiceProvider;
+use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\Facades\Route;
 
 class AppServiceProvider extends ServiceProvider
@@ -33,6 +35,8 @@ class AppServiceProvider extends ServiceProvider
                 ->middleware('api')
                 ->group(base_path('routes/api.php'));
         });
+
+        Blade::component('code-block', CodeBlock::class);
     }
     public function configureMiddlewareGroups($middlewareGroups)
     {

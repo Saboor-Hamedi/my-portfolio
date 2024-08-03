@@ -96,12 +96,12 @@
                         <div>
                             <label for="body"
                                 class="block text-sm font-medium text-gray-700 dark:text-gray-200">Body</label>
-                            <textarea id="body" name="body" rows="4"
+                            <textarea id="editor" name="body" rows="4"
                                 class="p-2 focus:outline-none mt-1 block w-full 
                                 rounded-md border-gray-300 shadow-sm focus:border-indigo-500 
                                 border border-b-gray-900
                                 focus:ring-indigo-500 dark:bg-gray-700 dark:text-gray-200 dark:border-gray-600"
-                                placeholder="New Post">{{ $post->title }}</textarea>
+                                placeholder="New Post">{!! $post->body !!}</textarea>
                             <div class="text-red-500 mt-1">
                                 @error('body')
                                     <small class="invalid-feedback" role="alert">
@@ -121,7 +121,8 @@
                         </div>
 
                         <!-- Submit Button -->
-                        <div class="flex justify-between p-4 border-t border-gray-200 dark:border-gray-600 bg-gray-50 dark:bg-gray-800">
+                        <div
+                            class="flex justify-between p-4 border-t border-gray-200 dark:border-gray-600 bg-gray-50 dark:bg-gray-800">
                             <button type="submit" id="submit"
                                 class="bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-2 px-4 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:bg-indigo-500 dark:hover:bg-indigo-600">
                                 Update
@@ -138,5 +139,34 @@
     </main>
 
     <script src="{{ asset('js/sidebar.js') }}"></script>
+    <script>
+        ClassicEditor
+            .create(document.querySelector('#editor'), {
 
+                alignment: {
+                    options: ['left', 'right']
+                },
+                toolbar: [
+                    'heading', '|', 'bulletedList', 'numberedList', 'alignment', 'undo', 'redo'
+                ],
+                codeBlock: {
+                    languages: [{
+                            language: 'css',
+                            label: 'CSS'
+                        },
+                        {
+                            language: 'html',
+                            label: 'HTML'
+                        },
+                        {
+                            language: 'javascript',
+                            label: 'JavaScript'
+                        }
+                    ]
+                }
+            })
+            .catch(error => {
+                console.error(error);
+            })
+    </script>
 </x-layout>

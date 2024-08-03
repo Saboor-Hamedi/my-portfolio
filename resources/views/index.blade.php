@@ -37,12 +37,12 @@
                             <h3>
                                 <a href="{{ route('posts.show', [$post->slug]) }}"
                                     class="inline-block mb-4 text-xl font-semibold text-dark dark:text-white hover:text-primary sm:text-2xl lg:text-xl xl:text-2xl">
-                                    {{ $post->title ?? 'N/A' }}
+                                    {!! $post->title ?? 'N/A' !!}
                                 </a>
 
                             </h3>
                             <p class="text-sm  ">
-                                {{ Str::limit($post->body, 150) ?? 'N/A' }}
+                                {!! Str::limit($post->body, 150) ?? 'N/A' !!}
                             </p>
                             <div class="tags p-2">
                                 @foreach ($post->tags as $tag)

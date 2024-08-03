@@ -23,7 +23,7 @@ class PostPolicy
      */
     public function view(User $user, Posts $posts): bool
     {
-        //
+        return $user->id === $posts->user_id;
     }
 
     /**

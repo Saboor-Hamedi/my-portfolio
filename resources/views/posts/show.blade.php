@@ -36,10 +36,15 @@
                         @endif
 
                     </div>
-                    <h3 class="text-2xl font-bold mb-2">{{ Str::ucfirst($post->title) }}</h3>
-
                 </figure>
-                <p class="text-justify">{!! $post->wrapBodyText(500, true) !!}</p>
+                <div class="inline-block p-2">
+                    <h1
+                        class="mb-4 text-4xl font-extrabold leading-none tracking-tight text-gray-900 md:text-5xl lg:text-6xl dark:text-white">
+                        {!! Str::ucfirst($post->title) !!}
+                    </h1>
+                    {!! $post->body !!}
+                </div>
+
                 <div class="tags p-2">
                     @foreach ($post->tags as $tag)
                         <span

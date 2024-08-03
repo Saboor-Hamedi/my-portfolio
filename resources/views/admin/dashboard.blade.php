@@ -39,13 +39,12 @@
                             </div>
                             <h3 class="text-xl font-semibold mb-2">
                                 <a href="{{ route('admin.show', [$post->slug]) }}"
-                                    class="text-dark dark:text-white hover:text-primary">
+                                    class="block mb-4 text-xl font-semibold text-dark dark:text-black hover:text-primary sm:text-2xl lg:text-xl xl:text-2xl">
                                     {{ $post->title ?? 'N/A' }}
                                 </a>
                             </h3>
-                            <p class="text-sm mb-2">
-                                {{ Str::limit($post->body, 40) ?? 'N/A' }}
-                            </p>
+
+                            {!! Str::limit($post->body, 40) ?? 'N/A' !!}
                             <div class="tags flex flex-wrap mb-2">
                                 @foreach ($post->tags as $tag)
                                     <span
