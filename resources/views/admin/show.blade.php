@@ -39,17 +39,16 @@
                 </div>
 
                 <div class="inline-block p-2">
-                    <h1 class="mb-4 text-4xl font-extrabold leading-none tracking-tight text-gray-900 md:text-5xl lg:text-6xl dark:text-white">
+                    <h1
+                        class="mb-4 text-4xl font-extrabold leading-none tracking-tight md:text-5xl lg:text-6xl dark:text-white">
                         {!! Str::ucfirst($post->title) !!}
                     </h1>
                     {!! $post->body !!}
                 </div>
-                 
-                <div class="tags p-2">
+
+                <div class="tags flex flex-wrap mb-2">
                     @foreach ($post->tags as $tag)
-                        <span
-                            class="bg-gray-100 text-gray-800 text-sm font-medium me-2 px-2.5 
-                                                py-0.5 rounded dark:bg-gray-700 dark:text-gray-300">
+                        <span class="text-sm font-medium mr-2 ml-2 mt-2 px-2.5rounded">
                             #{{ $tag->name }}
                         </span>
                     @endforeach
@@ -58,6 +57,5 @@
 
         </div>
     </main>
-
     <script src="{{ asset('js/sidebar.js') }}"></script>
 </x-layout>

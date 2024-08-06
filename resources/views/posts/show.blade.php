@@ -39,7 +39,7 @@
                 </figure>
                 <div class="inline-block p-2">
                     <h1
-                        class="mb-4 text-4xl font-extrabold leading-none tracking-tight text-gray-900 md:text-5xl lg:text-6xl dark:text-white">
+                        class="mb-4 text-4xl font-extrabold leading-none tracking-tight  md:text-5xl lg:text-6xl ">
                         {!! Str::ucfirst($post->title) !!}
                     </h1>
                     {!! $post->body !!}
@@ -48,7 +48,7 @@
                 <div class="tags p-2">
                     @foreach ($post->tags as $tag)
                         <span
-                            class="bg-gray-100 text-gray-800 text-sm font-medium me-2 px-2.5 
+                            class="text-sm font-medium me-2 px-2.5 
                                                 py-0.5 rounded dark:bg-gray-700 dark:text-gray-300">
                             #{{ $tag->name }}
                         </span>
@@ -112,13 +112,13 @@
 
                                 </h3>
                                 <p class="text-base text-body-color dark:text-dark-6">
-                                    {{ Str::limit($otherPost->body, 50) ?? 'N/A' }}
+                                    {!! Str::limit($otherPost->body, 50) ?? 'N/A' !!}
                                 </p>
                             </div>
-                            <div class="tags p-2">
-                                @foreach ($otherPost->tags as $tag)
+                             <div class="tags p-2">
+                                @foreach ($post->tags as $tag)
                                     <span
-                                        class="bg-gray-100 text-gray-800 text-sm font-medium me-2 px-2.5 
+                                        class="text-sm font-medium me-2 px-2.5 
                                                 py-0.5 rounded dark:bg-gray-700 dark:text-gray-300">
                                         #{{ $tag->name }}
                                     </span>

@@ -2,28 +2,39 @@
     <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div class="flex h-16 items-center justify-between">
             <div class="flex items-center">
-                <div class="flex-shrink-0">
-                    <button id="sidebarToggle" class="sm:hidden">
-                        <span class="sr-only">Open sidebar</span>
-                        <svg class="w-6 h-6" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20"
-                            xmlns="http://www.w3.org/2000/svg">
-                            <path clip-rule="evenodd" fill-rule="evenodd"
-                                d="M2 4.75A.75.75 0 012.75 4h14.5a.75.75 0 010 1.5H2.75A.75.75 0 012 4.75zm0 10.5a.75.75 0 01.75-.75h7.5a.75.75 0 010 1.5h-7.5a.75.75 0 01-.75-.75zM2 10a.75.75 0 01.75-.75h14.5a.75.75 0 010 1.5H2.75A.75.75 0 012 10z">
-                            </path>
-                        </svg>
-                    </button>
+                @if (Auth::check())
+                    <div class="flex-shrink-0">
+                        <button id="sidebarToggle"
+                            class="sm:hidden relative inline-flex items-center justify-center rounded-md bg-gray-800 p-2
+                     text-gray-400 hover:bg-gray-700 hover:text-white 
+                     focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2
+                      focus:ring-offset-gray-800">
+                            <svg class="w-6 h-6" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path clip-rule="evenodd" fill-rule="evenodd"
+                                    d="M2 4.75A.75.75 0 012.75 4h14.5a.75.75 0 010 1.5H2.75A.75.75 0 012 4.75zm0 10.5a.75.75 0 01.75-.75h7.5a.75.75 0 010 1.5h-7.5a.75.75 0 01-.75-.75zM2 10a.75.75 0 01.75-.75h14.5a.75.75 0 010 1.5H2.75A.75.75 0 012 10z">
+                                </path>
+                            </svg>
+                        </button>
+                    </div>
+                @endif
+                @if (!Auth::check())
                     <a href="{{ route('index') }}">
                         <img class="rounded-full h-8 w-8" src="{{ url('storage/logo/logo.png') }}" alt="logo" />
-                    </a>
-                </div>
+                    @else
+                        <a href="{{ route('admin.index') }}">
+                            <img class="rounded-full h-8 w-8" src="{{ url('storage/logo/logo.png') }}" alt="logo" />
+                        </a>
+                @endif
                 <div class="hidden md:block">
                     <div class="ml-10 flex items-baseline space-x-4">
-                        <x-nav-links href="{{ route('index') }}" :active="request()->routeIs('index')">Posts</x-nav-links>
-                        <x-nav-links href="{{ route('about.index') }}" :active="request()->routeIs('about.index')">About</x-nav-links>
-                        <x-nav-links href="{{ route('contact.index') }}" :active="request()->routeIs('contact.index')">Contact</x-nav-links>
-                        <x-nav-links href="{{ route('login') }}" :active="request()->routeIs('login')">Login</x-nav-links>
+                        @if (!Auth::check())
+                            <x-nav-links href="{{ route('index') }}" :active="request()->routeIs('index')">Posts</x-nav-links>
+                            <x-nav-links href="{{ route('about.index') }}" :active="request()->routeIs('about.index')">About</x-nav-links>
+                            <x-nav-links href="{{ route('contact.index') }}" :active="request()->routeIs('contact.index')">Contact</x-nav-links>
+                            <x-nav-links href="{{ route('login') }}" :active="request()->routeIs('login')">Login</x-nav-links>
+                        @endif
                     </div>
-
                 </div>
                 <div class="toggle-button">
                     <input type="checkbox" id="darkModeSwitch" class="sr-only" aria-label="Toggle dark mode" />
@@ -57,7 +68,7 @@
                     </div>
                 </div>
             </div>
-            <div class="-mr-2 flex md:hidden">
+            {{-- <div class="-mr-2 flex md:hidden">
                 <!-- Mobile menu button -->
                 <button type="button"
                     class="relative inline-flex items-center justify-center rounded-md bg-gray-800 p-2 text-gray-400 hover:bg-gray-700 hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800"
@@ -76,7 +87,7 @@
                         <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
                     </svg>
                 </button>
-            </div>
+            </div> --}}
         </div>
     </div>
     <!-- Mobile menu, show/hide based on menu state. -->

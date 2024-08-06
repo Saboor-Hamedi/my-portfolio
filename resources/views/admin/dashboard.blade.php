@@ -15,7 +15,7 @@
             {{-- Blog posts --}}
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                 @foreach ($posts as $post)
-                    <div class="w-full mb-3 bg-white rounded-lg shadow-2xl flex flex-col">
+                    <div class="w-full mb-3 rounded-lg shadow-2xl flex flex-col">
                         <!-- Image Section -->
                         <div class="mb-2">
                             @if (!$post->image)
@@ -30,16 +30,16 @@
                         <!-- Content Section -->
                         <div class="flex-1 p-4">
                             <div class="mb-2">
-                                <span class="p-2 text-gray-700">
+                                <span>
                                     Author: {{ ucfirst($post->user->name ?? 'Anonymous') }}
                                 </span>
-                                <span class="p-2 text-gray-500">
+                                <span class="p-2 ">
                                     {{ $post->created_at->diffForHumans() ?? 'N/A' }}
                                 </span>
                             </div>
                             <h3 class="text-xl font-semibold mb-2">
                                 <a href="{{ route('admin.show', [$post->slug]) }}"
-                                    class="block mb-4 text-xl font-semibold text-dark dark:text-black hover:text-primary sm:text-2xl lg:text-xl xl:text-2xl">
+                                    class="block mb-4 text-xl font-semibold text-dark  sm:text-2xl lg:text-xl xl:text-2xl">
                                     {{ $post->title ?? 'N/A' }}
                                 </a>
                             </h3>
@@ -47,8 +47,7 @@
                             {!! Str::limit($post->body, 40) ?? 'N/A' !!}
                             <div class="tags flex flex-wrap mb-2">
                                 @foreach ($post->tags as $tag)
-                                    <span
-                                        class="bg-gray-100 text-gray-800 text-sm font-medium mr-2 px-2.5 py-0.5 rounded dark:bg-gray-700 dark:text-gray-300">
+                                    <span class="text-sm font-medium mr-2 mt-2 px-2.5rounded">
                                         #{{ $tag->name }}
                                     </span>
                                 @endforeach
@@ -56,8 +55,7 @@
                         </div>
 
                         <!-- Footer Section -->
-                        <div
-                            class="flex justify-between p-4 border-t border-gray-200 dark:border-gray-600 bg-gray-50 dark:bg-gray-800">
+                        <div class="flex justify-between p-4 border-t ">
                             <div class="flex-1">
                                 <form action="{{ route('admin.destroy', $post->id) }}" method="POST">
                                     @csrf
@@ -91,5 +89,5 @@
             {{-- End blog posts --}}
         </div>
     </main>
-
+    <script src="{{ asset('js/sidebar.js') }}"></script>
 </x-layout>

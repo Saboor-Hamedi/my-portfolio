@@ -24,16 +24,11 @@
     <script src="{{ asset('js/navbar.js') }}"></script>
     <script src="{{ asset('js/dashboard.js') }}"></script>
     <script src="{{ asset('js/tag.js') }}"></script>
-    {{-- syntax highlighter --}}
 
     {{-- the tags --}}
     <script>
         $('input[name="tag"]').amsifySuggestags();
     </script>
-
-
-
-
 </body>
 
 </html>

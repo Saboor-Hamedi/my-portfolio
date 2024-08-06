@@ -139,34 +139,4 @@
     </main>
 
     <script src="{{ asset('js/sidebar.js') }}"></script>
-    <script>
-        ClassicEditor
-            .create(document.querySelector('#editor'), {
-
-                alignment: {
-                    options: ['left', 'right']
-                },
-                toolbar: [
-                    'heading', '|', 'bulletedList', 'numberedList', 'alignment', 'undo', 'redo'
-                ],
-                codeBlock: {
-                    languages: [{
-                            language: 'css',
-                            label: 'CSS'
-                        },
-                        {
-                            language: 'html',
-                            label: 'HTML'
-                        },
-                        {
-                            language: 'javascript',
-                            label: 'JavaScript'
-                        }
-                    ]
-                }
-            })
-            .catch(error => {
-                console.error(error);
-            })
-    </script>
-</x-layout>
+   </x-layout>
